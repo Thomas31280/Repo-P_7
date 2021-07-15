@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Import CSS stylesheet minified for Bootstrap with CDN, then link for icons -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <title>GrandPY Bot</title>
+
+
+</head>
+
+<body>
+
+    <div class="expand bg-secondary">
+
+        <div class = "container">
+
+            <div class="row align-items-center">
+                <img src="../static/img/logo bot.png" width="50" height="40" alt="Site logo">
+                <div class="col text-white font-weight-bold">
+                    De mon temps, les GPS n'existaient pas, on était obligés de réfléchir !
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class = "container">
+
+        <div class = "jumbotron mt-5">
+            <div class="row">
+
+                <div class="col-12 col-md-7 col-lg-6 border mb-3 mb-md-0" id="output"> 
+                    <!--Chat Box Here-->
+                </div>
+
+                <form class="form-inline col-12 col-md-5 col-lg-6 align-self-center">
+
+                    <!--User Question-->
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="userQuestion" placeholder="Que voulez-vous savoir ?">       <!--Input field, with his ID and bootstrap classes-->
+                    </div>
+
+                </form>
+
+                <div class="col-12 border text-center mt-3">
+                    <h1>Flask Google Maps Example</h1>
+                
+                    <h2>Map generated in view</h2>
+                    {{mymap}}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-12 text-center font-weight-bold">
+                Duval Thomas
+            </div>
+            <div>
+                <ul class="list-inline social-network social-circle">
+                    <li class = "list-inline-item"><a href="https://github.com/Thomas31280/Repo-P_7" class="icoGithub" title="Github"><i class="fa fa-github"></i> Github</a></li>
+                    <li class = "list-inline-item"><a href="https://www.facebook.com/thomas.duval.1654/" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i> Facebook</a></li>
+                    <li class = "list-inline-item"><a href="https://twitter.com/home" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i> Twitter</a></li>
+                    <li class = "list-inline-item"><a href="https://www.linkedin.com/in/thomas-duval-3860441b6/" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i> Linkedin</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <script>                                                                                       // In script tags, we define all about the JS and jQuery ( and AJAX consequently ) part. All the functions etc...
+        $(document).ready(function() {                                                             // We use $ in jQuery to select an element. En jQuery, on appelle une méthode sur un objet ( ou un ensemble d'objets). Les étapes sont simple pour utiliser une méthode jQuery.   1) On sélectionne un élément convertit en un objet jQuery avec $().   2) On met un point.   3) On met le nom de la méthode.   4) On met des parenthèses, vides ou contenant des paramètres.   This line in particular tell to the browser to run the fonctions after the document that is HTML is fully loaded.
+            $('form').on('submit', function(event) {                                               // Si on reprend les étapes citées ci-dessus, on doit donc avoir : $("element").méthode("paramètres")    C'est exactement le cas ici !!!! On sélectionne l'élément HTML form que l'on convertit en objet jQuery, puis on utilise la méthode .on dessus ( un event listener donc ), et on place les paramètres requis dans les parenthèses.
+                $.ajax({                                                                           // Here we define the AJAX part...
+                    data : {                                                                       // ... Inside the AJAX, we put in a dictionnary ( we can consider it as a JSON object ) the fields values of #firstName and #lastName...
+                    userQuestion : $('#userQuestion').val()
+                    },
+                    type : 'POST',                                                                 // ... Then we define the request method ( POST here, who means 'send the data to the server' )...
+                    url : '/chatProcess'                                                           // ... And obvioulsy we define the server route for the flask post method that will perform the tasks on the JSON data.
+                })
+                .done(function(data) {                                                             // At the end of the process on the JSON data send to the flask method...
+                 console.log(data)
+                    $('#output').text(data.output).show();                                         // ... show the result in the HTML object with the ID "output"
+             });
+             event.preventDefault();
+             });
+        });
+        </script>
+
+
+    <!-- Import jQuery first, then Popper.js, then Bootstrap JS with CDN -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
