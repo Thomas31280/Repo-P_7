@@ -1,8 +1,25 @@
-<head>
-    <title>map</title>
-    <link rel="stylesheet" href="https://developers.google.com//maps/documentation/javascript/demos/demos.css">
-    <style>#map { height: 100%; width: 100%; }</style>
-</head>
-<body>
-    {{map.html}}{{map.js}}
-</body>
+<!DOCTYPE html>
+<html>
+  <head>
+    {{"decoupled-map"|googlemap_js(37.4419, -122.1419, markers=[(37.4419,
+    -122.1419)])}} {{mymap.js}}
+  </head>
+  <body>
+    <h1>Flask Google Maps Example</h1>
+
+    <h2>Template function centered, no marker</h2>
+    {{googlemap("simple-map", 37.4419, -122.1419)}}
+
+    <h2>Template filter decoupled with single marker</h2>
+    {{"decoupled-map"|googlemap_html(37.4419, -122.1419)}}
+
+    <h2>Template function with multiple markers</h2>
+    {% with map=googlemap_obj("another-map", 37.4419, -122.1419,
+    markers=[(37.4419, -122.1419), (37.4300, -122.1400)]) %} {{map.html}}
+    {{map.js}} {% endwith %}
+
+    <h2>First map generated in view</h2>
+    {{mymap.html}}
+
+  </body>
+</html>

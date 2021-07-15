@@ -13,8 +13,6 @@ app.config["GoogleMaps_Key"] = config.MAPS_API_KEY
 # Initialize the extension
 GoogleMaps(app)
 
-devices_data = {} # dict to store data of devices
-devices_location = {} # dict to store coordinates of devices
 
 @app.route('/')
 @app.route('/index/')
@@ -23,75 +21,35 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/mapview', methods=['GET', 'POST'])
+@app.route('/mapview')
 def mapview():
-    # json_data = request.get_json(silent=True)
-    # get json request
-
-    json_data = { # for testing
-        'user' : {
-            'x' : 37.50611,
-            'y' : 127.0616346
-        },
-        'devices' : [
-            {
-                'id' : '0001',
-                'x' : 37.5077121,
-                'y' : 127.0624397,
-                'data' : 'something'
-            }
+    # creating a map in the view
+    mymap = Map(
+        identifier="view-side",
+        lat=37.4419,
+        lng=-122.1419,
+        markers=[(37.4419, -122.1419)]
+    )
+    sndmap = Map(
+        identifier="sndmap",
+        lat=37.4419,
+        lng=-122.1419,
+        markers=[
+          {
+             'icon': 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+             'lat': 37.4419,
+             'lng': -122.1419,
+             'infobox': "<b>Hello World</b>"
+          },
+          {
+             'icon': 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+             'lat': 37.4300,
+             'lng': -122.1400,
+             'infobox': "<b>Hello World from other place</b>"
+          }
         ]
-    }
-
-    user_location = (json_data['user']['x'], json_data['user']['y'])
-    # json example : { 'user' : { 'x' : '300' , 'y' : '300' } }
-    # get user_location from json & store as turple (x, y)
-
-    devices_data[str(json_data['devices'][0]['id'])] = (
-        json_data['devices'][0]['data']
     )
-
-    devices_location[str(json_data['devices'][0]['id'])] = (
-        json_data['devices'][0]['x'], 
-        json_data['devices'][0]['y']
-    )
-    # json example : { 'devices' : { 'id' : '0001', x' : '500', 'y' : '500' }, { ... } }
-    # get device_location from json & store turple (x, y) in dictionary with device id as key
-    # use for statements or something to get more locations from more devices
-
-    circle = { # draw circle on map (user_location as center)
-        'stroke_color': '#0000FF',
-        'stroke_opacity': .5,
-        'stroke_weight': 5,
-        # line(stroke) style
-        'fill_color': '#FFFFFF', 
-        'fill_opacity': .2,
-        # fill style
-        'center': { # set circle to user_location
-            'lat': user_location[0],
-            'lng': user_location[1]
-        }, 
-        'radius': 500 # circle size (50 meters)
-    }
-
-    map = Map(
-        identifier = "map", varname = "map",
-        # set identifier, varname
-        lat = user_location[0], lng = user_location[1], 
-        # set map base to user_location
-        zoom = 15, # set zoomlevel
-        markers = [
-            {
-                'lat': devices_location['0001'][0],
-                'lng': devices_location['0001'][1],
-                'infobox': devices_data['0001']
-            }
-        ], 
-        # set markers to location of devices
-        circles = [circle] # pass circles
-    )
-
-    return render_template('exemple.html', map=map) # render template
+    return render_template('exemple.html', mymap=mymap, sndmap=sndmap)
 
 
 @app.route('/chatProcess', methods= ['POST'])
