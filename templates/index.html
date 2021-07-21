@@ -13,7 +13,39 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
     <title>GrandPY Bot</title>
+    
+    <style type="text/css">
+        /* Set the size of the div element that contains the map */
+        #map {
+          height: 400px;
+          /* The height is 400 pixels */
+          width: 100%;
+          /* The width is the width of the web page */
+        }
+    </style>
 
+
+    <script>
+
+        // Initialize and add the map
+        function initMap() {
+            // The location
+            const location = { lat: {{lat}}, lng: {{lng}} };
+            // The map, centered at location
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: {{zoom}},
+                center: location,
+            });
+            // The marker, positioned at location
+            if ({{marker}} == 1) {
+                const marker = new google.maps.Marker({
+                    position: location,
+                    map: map,
+                });
+            }
+        }
+
+    </script>
 
 </head>
 
@@ -53,11 +85,11 @@
                 </form>
 
                 <div class="col-12 border text-center mt-3">
-                    <h1>Flask Google Maps Example</h1>
-                
-                    <h2>Map generated in view</h2>
-                    {{mymap}}
                     
+                    <h4>Powered by Google Maps</h4>
+                    <!--The div element for the map -->
+                    <div id="map"></div>
+
                 </div>
             </div>
         </div>
@@ -97,12 +129,15 @@
              event.preventDefault();
              });
         });
-        </script>
+    </script>
 
 
     <!-- Import jQuery first, then Popper.js, then Bootstrap JS with CDN -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA82ltceuy0tyvC3y6DgU-1x73AApjnN5M&callback=initMap&libraries=&v=weekly" async></script>
+
+
 </body>
 </html>
