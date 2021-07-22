@@ -36,17 +36,17 @@ class Process:
                         "adress": geocode_result[0]['formatted_address']}
 
             return response
-        
+
         except:
             # In case of failure
             return "ERROR : This adress couldn't been find..."
-    
+
 
     @classmethod
     def wikipedia_API(cls, adress):
 
         first_part_of_the_adress = ''
-        
+
         # We only extract the first part of the adress, wich one we want to send to wikipedia API. 
         # This fisrt part is before the first comma...
         try:
@@ -61,9 +61,9 @@ class Process:
             summary = wikipedia.summary(first_part_of_the_adress)                            # We get the summary...
             page = wikipedia.page(first_part_of_the_adress)                                  # ... then stock the page in a variable...
             url_to_the_page = page.url                                                       # ... to finally get the url of this wiki's api object.
-            
+
             response = {"summary": summary, "url": url_to_the_page}
-            
+
             return response
         
         except:

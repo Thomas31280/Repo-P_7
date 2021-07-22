@@ -33,35 +33,30 @@ def mapview():
 def chatProcess():
 
     userQuestion = request.form['userQuestion']                                # We define 2 variables. The first is directly related to the values of the forms in HTML, and the second is the the text to display in the browser.
-    output = userQuestion
+    output_question = userQuestion
 
     if userQuestion:
         
         # We process the question in the parser
         # We stock it in a variable
         question_parsed = Process.parser(userQuestion)
-        print(question_parsed)
+        
 
         # We call the Google Maps API with the result of the parser
         # We stock the answer in a variable
         adress = Process.google_maps_API(question_parsed)['adress']
         coordinates = Process.google_maps_API(question_parsed)['coordinates']
 
-        print('Here is the adress :', adress)
-        print('Here are the coordinates :', coordinates)
-
         # We call the Wiki API with the adress returned by Google Maps
         # We stock the answer in a variable
         summary = Process.wikipedia_API(adress)['summary']
         url = Process.wikipedia_API(adress)['url']
 
-        print("Here is the summary :", summary)
-        print("Here is the url :", url)
 
         # We return all the results in a JSON file to display correctly with ajax in the template
-        
-        return jsonify({'output': output})                                     # The return jsonify( {‘output’:output} ) will return output as a json data
-
+        # The return jsonify() will return the data as a json
+        return jsonify({'outputQuestion': output_question, 'adress': adress, 
+                        'coordinates': coordinates, 'summary': summary, 'url': url})
     else:
         return jsonify({'error' : 'Missing data!'})                            # If there is no data required in the JSON returned by the AJAX part, we return a JSON who says data missing
 

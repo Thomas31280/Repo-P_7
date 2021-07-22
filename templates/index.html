@@ -24,28 +24,27 @@
         }
     </style>
 
-
     <script>
-
+         
         // Initialize and add the map
-        function initMap() {
+        function displayMap(lat, lng) {
             // The location
-            const location = { lat: {{lat}}, lng: {{lng}} };
+            const location = { lat: lat, lng: lng };
             // The map, centered at location
             const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: {{zoom}},
+                zoom: 13,
                 center: location,
             });
             // The marker, positioned at location
-            if ({{marker}} == 1) {
-                const marker = new google.maps.Marker({
-                    position: location,
-                    map: map,
-                });
-            }
+            const marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+        
         }
-
+    
     </script>
+
 
 </head>
 
@@ -124,8 +123,14 @@
                 })
                 .done(function(data) {                                                             // At the end of the process on the JSON data send to the flask method...
                  console.log(data)
-                    $('#output').text(data.output).show();                                         // ... show the result in the HTML object with the ID "output"
-             });
+                    $('#output').text(data.outputQuestion + '\n' + 'Bien sûr mon poussin ! La voici : '
+                                      + data.adress + '\n' + "Laisse moi te présenter l'endroit : "
+                                      + data.summary + '\n' + 'Si tu souhaites en savoir plus : '
+                                      + data.url).show();                                          // ... show the result in the HTML object with the ID "output"
+
+                    displayMap.call(this, data.coordinates['lat'], data.coordinates['lng'])
+
+                });
              event.preventDefault();
              });
         });
