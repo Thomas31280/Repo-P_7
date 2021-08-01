@@ -13,7 +13,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
     <title>GrandPY Bot</title>
-    
+
     <style type="text/css">
         /* Set the size of the div element that contains the map */
         #map {
@@ -23,28 +23,6 @@
           /* The width is the width of the web page */
         }
     </style>
-
-    <script>
-         
-        // Initialize and add the map
-        function displayMap(lat, lng) {
-            // The location
-            const location = { lat: lat, lng: lng };
-            // The map, centered at location
-            const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 13,
-                center: location,
-            });
-            // The marker, positioned at location
-            const marker = new google.maps.Marker({
-                position: location,
-                map: map
-            });
-        
-        }
-    
-    </script>
-
 
 </head>
 
@@ -70,8 +48,12 @@
         <div class = "jumbotron mt-5">
             <div class="row">
 
-                <div class="col-12 col-md-7 col-lg-6 border mb-3 mb-md-0" id="output"> 
+                <div class="col-12 col-md-7 col-lg-6 border mb-3 mb-md-0"> 
                     <!--Chat Box Here-->
+                    <div id="output_question"></div>
+                    <div id="address"></div>
+                    <div id="summary"></div>
+                    <div id="url"></div>
                 </div>
 
                 <form class="form-inline col-12 col-md-5 col-lg-6 align-self-center">
@@ -94,6 +76,8 @@
         </div>
     </div>
 
+    <script src="../static/js/index_functions.js"></script>
+
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="col-12 text-center font-weight-bold">
@@ -109,32 +93,6 @@
             </div>
         </div>
     </div>
-
-
-    <script>                                                                                       // In script tags, we define all about the JS and jQuery ( and AJAX consequently ) part. All the functions etc...
-        $(document).ready(function() {                                                             // We use $ in jQuery to select an element. En jQuery, on appelle une méthode sur un objet ( ou un ensemble d'objets). Les étapes sont simple pour utiliser une méthode jQuery.   1) On sélectionne un élément convertit en un objet jQuery avec $().   2) On met un point.   3) On met le nom de la méthode.   4) On met des parenthèses, vides ou contenant des paramètres.   This line in particular tell to the browser to run the fonctions after the document that is HTML is fully loaded.
-            $('form').on('submit', function(event) {                                               // Si on reprend les étapes citées ci-dessus, on doit donc avoir : $("element").méthode("paramètres")    C'est exactement le cas ici !!!! On sélectionne l'élément HTML form que l'on convertit en objet jQuery, puis on utilise la méthode .on dessus ( un event listener donc ), et on place les paramètres requis dans les parenthèses.
-                $.ajax({                                                                           // Here we define the AJAX part...
-                    data : {                                                                       // ... Inside the AJAX, we put in a dictionnary ( we can consider it as a JSON object ) the fields values of #firstName and #lastName...
-                    userQuestion : $('#userQuestion').val()
-                    },
-                    type : 'POST',                                                                 // ... Then we define the request method ( POST here, who means 'send the data to the server' )...
-                    url : '/chatProcess'                                                           // ... And obvioulsy we define the server route for the flask post method that will perform the tasks on the JSON data.
-                })
-                .done(function(data) {                                                             // At the end of the process on the JSON data send to the flask method...
-                 console.log(data)
-                    $('#output').text(data.outputQuestion + '\n' + 'Bien sûr mon poussin ! La voici : '
-                                      + data.adress + '\n' + "Laisse moi te présenter l'endroit : "
-                                      + data.summary + '\n' + 'Si tu souhaites en savoir plus : '
-                                      + data.url).show();                                          // ... show the result in the HTML object with the ID "output"
-
-                    displayMap.call(this, data.coordinates['lat'], data.coordinates['lng'])
-
-                });
-             event.preventDefault();
-             });
-        });
-    </script>
 
 
     <!-- Import jQuery first, then Popper.js, then Bootstrap JS with CDN -->

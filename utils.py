@@ -32,14 +32,15 @@ class Process:
         try:
             # Geocoding the parsed adress
             geocode_result = gmaps.geocode(question_parsed)
-            response = {"coordinates": geocode_result[0]['geometry']['location'], 
-                        "adress": geocode_result[0]['formatted_address']}
+            response = {"maps_api_call": 'Ok', "coordinates": geocode_result[0]['geometry']['location'], 
+                        "address": geocode_result[0]['formatted_address']}
 
             return response
 
         except:
             # In case of failure
-            return "ERROR : This adress couldn't been find..."
+            response = {"maps_api_call": 'Failure'}
+            return response
 
 
     @classmethod
@@ -47,7 +48,7 @@ class Process:
 
         first_part_of_the_adress = ''
 
-        # We only extract the first part of the adress, wich one we want to send to wikipedia API. 
+        # We only extract the first part of the address, wich one we want to send to wikipedia API. 
         # This fisrt part is before the first comma...
         try:
             for letter in adress:
@@ -62,10 +63,11 @@ class Process:
             page = wikipedia.page(first_part_of_the_adress)                                  # ... then stock the page in a variable...
             url_to_the_page = page.url                                                       # ... to finally get the url of this wiki's api object.
 
-            response = {"summary": summary, "url": url_to_the_page}
+            response = {"wiki_api_call": 'Ok', "summary": summary, "url": url_to_the_page}
 
             return response
         
         except:
-
-            return "ERROR : We couldn't find more informations on wikipedia for this adress..."
+            # In case of failure
+            response = {'wiki_api_call': 'Failure'}
+            return response

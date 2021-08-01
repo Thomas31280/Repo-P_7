@@ -44,21 +44,38 @@ def chatProcess():
 
         # We call the Google Maps API with the result of the parser
         # We stock the answer in a variable
-        adress = Process.google_maps_API(question_parsed)['adress']
-        coordinates = Process.google_maps_API(question_parsed)['coordinates']
+        maps_call = Process.google_maps_API(question_parsed)                   # We do a single request to the API instead of two !
+        
+        if maps_call['maps_api_call'] == 'Ok':
+            maps_api_call = 'Ok'
+            address = maps_call['address']
+            coordinates = maps_call['coordinates']
+        else:
+            maps_api_call = 'Failure'
+            address = None
+            coordinates = None
 
         # We call the Wiki API with the adress returned by Google Maps
         # We stock the answer in a variable
-        summary = Process.wikipedia_API(adress)['summary']
-        url = Process.wikipedia_API(adress)['url']
+        wiki_call = Process.wikipedia_API(address)                             # Again, we do a single request to the API instead of two !
+        
+        if wiki_call['wiki_api_call'] == 'Ok':
+            wiki_api_call = 'Ok'
+            summary = wiki_call['summary']
+            url = wiki_call['url']
+        else:
+            wiki_api_call = 'Failure'
+            summary = None
+            url = None
 
 
         # We return all the results in a JSON file to display correctly with ajax in the template
         # The return jsonify() will return the data as a json
-        return jsonify({'outputQuestion': output_question, 'adress': adress, 
-                        'coordinates': coordinates, 'summary': summary, 'url': url})
+        return jsonify({'question': 'Ok', 'outputQuestion': output_question, 'address': address, 
+                        'coordinates': coordinates, 'summary': summary, 'url': url, 'wiki_api_call': wiki_api_call,
+                        'maps_api_call': maps_api_call})
     else:
-        return jsonify({'error' : 'Missing data!'})                            # If there is no data required in the JSON returned by the AJAX part, we return a JSON who says data missing
+        return jsonify({'question' : 'Error'})                                 # If there is no data required in the JSON returned by the AJAX part, we return a JSON who says data missing
 
 
 
