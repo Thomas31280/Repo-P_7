@@ -1,4 +1,3 @@
-import os
 
 # Active le debogueur
 DEBUG = True

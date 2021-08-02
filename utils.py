@@ -1,7 +1,7 @@
 import googlemaps
 import wikipedia
 
-import config
+from . import config
 
 
 # Set an instance of Google Maps
@@ -23,12 +23,12 @@ class Process:
             else:
                 output_value += (word + ' ')
         
-        return output_value
+        return output_value.rstrip()                                           # We remove the space at the end of the string
         
 
     @classmethod
     def google_maps_API(cls, question_parsed):
-        
+
         try:
             # Geocoding the parsed adress
             geocode_result = gmaps.geocode(question_parsed)
@@ -64,7 +64,6 @@ class Process:
             url_to_the_page = page.url                                                       # ... to finally get the url of this wiki's api object.
 
             response = {"wiki_api_call": 'Ok', "summary": summary, "url": url_to_the_page}
-
             return response
         
         except:

@@ -45,7 +45,7 @@ $(document).ready(function() {                                                  
                 $('#summary').text('').show();
                 $('#url').text('').show();
 
-                // We don't display the map in that case.
+                // Again, we don't display the map in that case.
                 $('#map').text('').show();
             }
 
