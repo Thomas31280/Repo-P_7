@@ -8,20 +8,23 @@ from . import config
 gmaps = googlemaps.Client(key=config.MAPS_API_KEY)
 wikipedia.set_lang("fr")
 
+url_value_for_test = None
+
 class Process:
 
     @classmethod
     def parser(cls, userquestion):
 
-        words_to_ignore = ["Salut", "GrandPy", "!", "Est-ce", "que", "tu", "connais", "l'adresse", "?"]
+        words_to_ignore = config.STOP_WORD
         output_value = ''
 
         for word in userquestion.split():
 
-            if word in words_to_ignore:
+            if word.lower() in words_to_ignore:
+
                 pass
             else:
-                output_value += (word + ' ')
+                output_value += (word.lower() + ' ')
         
         return output_value.rstrip()                                           # We remove the space at the end of the string
         
@@ -32,6 +35,7 @@ class Process:
         try:
             # Geocoding the parsed adress
             geocode_result = gmaps.geocode(question_parsed)
+
             response = {"maps_api_call": 'Ok', "coordinates": geocode_result[0]['geometry']['location'], 
                         "address": geocode_result[0]['formatted_address']}
 
@@ -61,9 +65,16 @@ class Process:
 
             summary = wikipedia.summary(first_part_of_the_adress)                            # We get the summary...
             page = wikipedia.page(first_part_of_the_adress)                                  # ... then stock the page in a variable...
-            url_to_the_page = page.url                                                       # ... to finally get the url of this wiki's api object.
+            
+            if url_value_for_test == None:
+                url_to_the_page = page.url                                                   # ... to finally get the url of this wiki's api object.
+            else:
+                url_to_the_page = url_value_for_test
+            
 
             response = {"wiki_api_call": 'Ok', "summary": summary, "url": url_to_the_page}
+            print(response)
+            print(type(response['url']))
             return response
         
         except:
