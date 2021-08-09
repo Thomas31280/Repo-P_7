@@ -1,4 +1,3 @@
-
 # Active le debogueur
 DEBUG = True
 TESTING = True
@@ -63,3 +62,14 @@ STOP_WORD = ["a","abord","absolument","afin","ah","ai","aie","ailleurs","ainsi",
              "vivat","vive","vives","vlan","voici","voilà","vont","vos","votre","vous","vous-mêmes","vu","vé",
              "vôtre","vôtres","w","x","y","z","zut","à","â","ça","ès","étaient","étais","était","étant","été",
              "être","ô", "salut", "grandpy", "!", "est-ce", "connais", "l'adresse", "?", ","]
+
+MOCK_MAPS_RESULT = [{'address_components': [{'long_name': '10', 'short_name': '10', 'types': ['street_number']}, 
+                    {'long_name': 'Cité Paradis', 'short_name': 'Cité Paradis', 'types': ['route']}, 
+                    {'long_name': 'Paris', 'short_name': 'Paris', 'types': ['locality', 'political']}, {'long_name': 
+                     'Département de Paris', 'short_name': 'Département de Paris', 'types': ['administrative_area_level_2', 'political']}, 
+                    {'long_name': 'Île-de-France', 'short_name': 'IDF', 'types': ['administrative_area_level_1', 'political']}, 
+                    {'long_name': 'France', 'short_name': 'FR', 'types': ['country', 'political']}, {'long_name': '75010', 'short_name': '75010', 'types': ['postal_code']}], 
+                     'formatted_address': '10 Cité Paradis, 75010 Paris, France', 'geometry': {'location': {'lat': 48.8751155, 'lng': 2.3489782}, 'location_type': 'ROOFTOP', 
+                     'viewport': {'northeast': {'lat': 48.8764644802915, 'lng': 2.350327180291502}, 'southwest': {'lat': 48.8737665197085, 'lng': 2.347629219708498}}}, 
+                     'partial_match': True, 'place_id': 'ChIJLUzI3xRu5kcRX7qwoQiY5bM', 'plus_code': {'compound_code': 'V8GX+2H Paris, France', 'global_code': '8FW4V8GX+2H'}, 
+                     'types': ['electronics_store', 'establishment', 'home_goods_store', 'point_of_interest', 'store']}]
