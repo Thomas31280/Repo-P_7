@@ -13,8 +13,18 @@ chatbox, et l'utilisateur utilise le programme directement dans son browser. Auc
 
 ### PREREQUIS
 
-Pour éxecuter le programme, il est tout d'abord nécessaire d'installer les librairies requises. Pour cela, on peut tout simplement utiliser _PIP_ pour
-installer toutes les librairies qui figurent dans le **requirements.txt**, via la commande _pip install * requirements.txt_
+Pour exécuter convenablement le programme, il faut préparer l'environnement pour que tout se passe correctement. Il faut donc :
+
+* Cloner le repo GitHub du projet, ce qui est soit faisable en faisant un téléchargement manuel depuis GitHub, soit en utilisant **Git Bash** ( les
+procédures de clonnage sont facilement trouvables sur google ).
+
+* Initialiser un environnement virtuel ( avec **Virtual Env** par exemple ). Dans ce cas, il vous faudra créer votre environnement virtuel avec
+**Python 3** dessus, puis l'activer. Selon que vous soyez sous Windows, MacOS ou Linux, les procédures changent légèrement. Là encore, elles sont très
+facilement trouvables sur Google.
+
+* Pour éxecuter le programme, il est enfin nécessaire d'installer les librairies requises. Pour cela, on peut tout simplement utiliser _PIP_ pour
+installer toutes les librairies qui figurent dans le **requirements.txt**, via la commande _pip install * requirements.txt_. Cette commande est
+à exécuter à la racine du projet, en ayant bien son environnement virtuel activé !!!
 
 ---
 

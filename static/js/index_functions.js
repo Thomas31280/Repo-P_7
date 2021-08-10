@@ -1,6 +1,6 @@
 $(document).ready(function() {                                                             // We use $ in jQuery to select an element. En jQuery, on appelle une méthode sur un objet ( ou un ensemble d'objets). Les étapes sont simple pour utiliser une méthode jQuery.   1) On sélectionne un élément convertit en un objet jQuery avec $().   2) On met un point.   3) On met le nom de la méthode.   4) On met des parenthèses, vides ou contenant des paramètres.   This line in particular tell to the browser to run the fonctions after the document that is HTML is fully loaded.
     $('form').on('submit', function(event) {                                               // Si on reprend les étapes citées ci-dessus, on doit donc avoir : $("element").méthode("paramètres")    C'est exactement le cas ici !!!! On sélectionne l'élément HTML form que l'on convertit en objet jQuery, puis on utilise la méthode .on dessus ( un event listener donc ), et on place les paramètres requis dans les parenthèses.
-
+// LOADER HERE
         $.ajax({                                                                           // Here we define the AJAX part...
             data : {                                                                       // ... Inside the AJAX, we put in a dictionnary ( we can consider it as a JSON object ) the fields values of #firstName and #lastName...
             userQuestion : $('#userQuestion').val()
@@ -10,6 +10,7 @@ $(document).ready(function() {                                                  
         })
         .done(function(data) {                                                             // At the end of the process on the JSON data send to the flask method...
          console.log(data)
+         // STOP LOADER HERE
             if(data.question == 'Ok'){
                 if (data.maps_api_call == 'Ok'){
                     if(data.wiki_api_call == 'Ok'){
