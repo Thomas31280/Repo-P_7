@@ -4,7 +4,7 @@ import wikipedia
 import config
 
 
-# Set an instance of Google Maps
+# Set an instance of Google Maps...
 gmaps = googlemaps.Client(key=config.MAPS_API_KEY)
 wikipedia.set_lang("fr")
 
