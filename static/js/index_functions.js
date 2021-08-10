@@ -16,7 +16,8 @@ $(document).ready(function() {                                                  
                         $('#output_question').text(data.outputQuestion).show();                                          // ... show the result in the HTML object with the ID "output"
                         $('#address').text('Bien sûr mon poussin ! La voici : ' + data.address).show();
                         $('#summary').text("Laisse moi te présenter l'endroit : " + data.summary).show();
-                        $('#url').text('Si tu souhaites en savoir plus : ' + data.url).show();
+                        $('#url').text('Si tu souhaites en savoir plus, clique ici !').attr("href", data.url).show();
+
 
                         displayMap.call(this, data.coordinates['lat'], data.coordinates['lng'])
                     }
