@@ -21,7 +21,7 @@ installer toutes les librairies qui figurent dans le **requirements.txt**, via l
 ### EXECUTION DU PROGRAMME
 
 Après avoir installé les librairies, il faudra se rendre dans le module **config.py** à la racine du projet, et entrer la valeur de votre clé d'API 
-GoogleMaps pour la variable _MAPS_API_KEY = _ ( notez que le type de donnée doit être une string ). Ensuite, exécutez la commande python _views.py_ 
+GoogleMaps pour la variable *MAPS_API_KEY =*  ( notez que le type de donnée doit être une string ). Ensuite, exécutez la commande python _views.py_ 
 dans votre console à la racine du projet ( sous windows ). _Flask_ utilisera alors son serveur de développement intégré pour vous proposer une URL sur 
 le port 5000 par défaut ( typiquement de type _http://127.0.0.1:5000/_ ). Vous pourrez alors accéder à l'interface utilisateur en suivant cette URL.
 
