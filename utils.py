@@ -1,3 +1,5 @@
+from dotenv import load_dotenv
+import os
 import googlemaps
 import wikipedia
 
@@ -5,11 +7,11 @@ import config
 
 
 # Set an instance of Google Maps...
-gmaps = googlemaps.Client(key=config.MAPS_API_KEY)
 wikipedia.set_lang("fr")
 
 url_value_for_test = None
 
+load_dotenv()
 
 class Process:
 
@@ -31,7 +33,9 @@ class Process:
 
     @classmethod
     def google_maps_API(cls, question_parsed):
-
+        
+        gmaps = googlemaps.Client(key=os.environ["MAPS_API_KEY"])
+        
         try:
             # Geocoding the parsed adress
             geocode_result = gmaps.geocode(question_parsed)
