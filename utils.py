@@ -13,6 +13,8 @@ url_value_for_test = None
 
 load_dotenv()
 
+gmaps = googlemaps.Client(config.MAPS_API_KEY)
+
 class Process:
 
     @classmethod
@@ -33,9 +35,7 @@ class Process:
 
     @classmethod
     def google_maps_API(cls, question_parsed):
-        
-        gmaps = googlemaps.Client(key=os.environ["MAPS_API_KEY"])
-        
+
         try:
             # Geocoding the parsed adress
             geocode_result = gmaps.geocode(question_parsed)
